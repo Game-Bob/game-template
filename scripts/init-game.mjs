@@ -23,6 +23,7 @@ if (!name || !slug || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug) || !/^[a-z][a-z0-
 const root = process.cwd();
 const replacements = [
     ["package.json", [["game-template", slug], ["Game Template", name]]],
+    ["README.md", [["# Game starter", `# ${name}`]]],
     ["index.html", [["Game Template", name]]],
     ["src/game/game-config.ts", [["game-template", slug], ["Game Template", name], ["com.gamebob.game", appId]]],
     ["capacitor.config.ts", [["com.gamebob.game", appId], ["Game Template", name]]],
