@@ -6,16 +6,25 @@ const args = new Map();
 for (let index = 2; index < process.argv.length; index += 1) {
     const argument = process.argv[index];
     if (!argument?.startsWith("--")) continue;
-    args.set(argument.slice(2), process.argv[index + 1] ?? "");
-    index += 1;
+    const separator = argument.indexOf("=");
+    if (separator >= 0) {
+        args.set(argument.slice(2, separator), argument.slice(separator + 1));
+        continue;
+    }
+    const values = [];
+    while (process.argv[index + 1] && !process.argv[index + 1].startsWith("--")) {
+        values.push(process.argv[index + 1]);
+        index += 1;
+    }
+    args.set(argument.slice(2), values.join(" "));
 }
 
 const name = args.get("name");
 const slug = args.get("slug") || name?.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-const appId = args.get("app-id") || (slug ? `com.gamebob.${slug}` : "");
+const appId = args.get("app-id") || (slug ? `com.gamebob.${slug.replaceAll("-", "")}` : "");
 
 if (!name || !slug || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug) || !/^[a-z][a-z0-9]*(?:\.[a-z0-9]+)+$/.test(appId)) {
-    console.error("Usage: npm run init -- --name \"My Game\" --slug my-game [--app-id com.gamebob.my-game]");
+    console.error("Usage: npm run init -- --name \"My Game\" --slug my-game [--app-id com.gamebob.mygame]");
     process.exitCode = 1;
     process.exit();
 }

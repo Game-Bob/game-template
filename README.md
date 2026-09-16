@@ -9,7 +9,7 @@ simple: sirve como smoke test y como punto de partida para sustituir la lógica.
 Clona o copia esta carpeta en un repositorio vacío y ejecuta:
 
 ```bash
-npm run init -- --name "Mi juego" --slug mi-juego --app-id com.gamebob.mi-juego
+npm run init -- --name "Mi juego" --slug mi-juego --app-id com.gamebob.mijuego
 npm install
 npm run dev
 ```
