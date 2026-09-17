@@ -41,7 +41,8 @@ npm run minor
 ```
 
 El comando incrementa la versión minor, actualiza `package.json` y
-`package-lock.json`, crea el commit y tag `vX.Y.0`, y sube ambos a `origin`.
+`package-lock.json`, genera el bundle de itch.io en `itch/output/`, crea el
+commit y tag `vX.Y.0`, y sube ambos a `origin`.
 
 ## itch.io
 

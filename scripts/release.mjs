@@ -50,11 +50,12 @@ try {
 }
 
 if (dryRun) {
-    console.log(`Todo correcto: npm run minor publicaría ${tag}.`);
+    console.log(`Todo correcto: npm run minor publicaría ${tag} y generaría el bundle de itch.io.`);
     process.exit(0);
 }
 
 runNpm(["version", nextVersion, "--no-git-tag-version"]);
+runNpm(["run", "itch:package"]);
 git(["add", "package.json", "package-lock.json"]);
 git(["commit", "--no-verify", "-m", `release: ${tag}`]);
 git(["tag", "-a", tag, "-m", `Release ${tag}`]);
