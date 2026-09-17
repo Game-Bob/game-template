@@ -77,7 +77,16 @@ jobs:
 
             - name: Publish npm package
               if: (inputs.mode == 'publish' || github.event_name == 'push') && steps.registry.outputs.published != 'true'
-              run: npm publish --access public
+              shell: bash
+              run: |
+                  set +e
+                  output=$(npm publish --access public 2>&1)
+                  status=$?
+                  printf '%s\n' "$output"
+                  if [[ "$status" -eq 0 || "$output" == *"previously published versions"* ]]; then
+                    exit 0
+                  fi
+                  exit "$status"
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
