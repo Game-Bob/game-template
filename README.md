@@ -31,6 +31,18 @@ El build web vive en `dist/` y se puede desplegar en cualquier hosting estático
 Vite usa `base: "./"`, así que el mismo build funciona dentro de una ruta o de
 un archivo empaquetado.
 
+## Releases
+
+El flujo común de GameBob exige una rama `main` limpia y sincronizada:
+
+```bash
+npm run minor -- --dry-run
+npm run minor
+```
+
+El comando incrementa la versión minor, actualiza `package.json` y
+`package-lock.json`, crea el commit y tag `vX.Y.0`, y sube ambos a `origin`.
+
 ## itch.io
 
 ```bash

@@ -17,6 +17,7 @@
         "test": "vitest run",
         "test:watch": "vitest",
         "qa": "npm run check && npm run test && npm run build",
+        "minor": "node scripts/release.mjs minor",
         "init": "node scripts/init-game.mjs",
         "itch:package": "node scripts/package-itch.mjs",
         "itch:preview": "node scripts/preview-itch.mjs",
