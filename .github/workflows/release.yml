@@ -81,6 +81,25 @@ jobs:
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+            - name: Ensure npm package is public
+              if: inputs.mode == 'publish' || github.event_name == 'push'
+              run: npm access public "${{ steps.package.outputs.name }}"
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+            - name: Verify public npm publication
+              if: inputs.mode == 'publish' || github.event_name == 'push'
+              shell: bash
+              run: |
+                  for attempt in 1 2 3 4 5; do
+                    if NPM_CONFIG_USERCONFIG=/dev/null npm view "${{ steps.package.outputs.name }}@${{ steps.package.outputs.version }}" version > /dev/null 2>&1; then
+                      exit 0
+                    fi
+                    sleep 10
+                  done
+                  echo "The package is not publicly visible in npm after publication."
+                  exit 1
+
             - name: Create GitHub release and upload artifacts
               if: inputs.mode == 'publish' || github.event_name == 'push'
               shell: bash
