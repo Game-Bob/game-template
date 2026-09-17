@@ -1,7 +1,15 @@
 {
-    "name": "game-template",
+    "name": "@gamebob/game-template",
     "version": "0.1.0",
-    "private": true,
+    "private": false,
+    "publishConfig": {
+        "access": "public"
+    },
+    "files": [
+        "dist",
+        "electron",
+        "README.md"
+    ],
     "type": "module",
     "main": "electron/main.cjs",
     "description": "Reusable cross-platform game starter for web, itch.io, Capacitor and Electron.",

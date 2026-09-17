@@ -40,9 +40,14 @@ npm run minor -- --dry-run
 npm run minor
 ```
 
-El comando incrementa la versión minor, actualiza `package.json` y
-`package-lock.json`, genera el bundle de itch.io en `itch/output/`, crea el
-commit y tag `vX.Y.0`, y sube ambos a `origin`.
+El comando ejecuta QA, incrementa la versión minor, genera el instalador
+Electron en `release/` y el bundle de itch.io en `itch/output/`, valida el
+paquete npm, crea el commit y tag `vX.Y.0`, y sube ambos a `origin`. El tag
+dispara GitHub Actions, que publica `@gamebob/game-template` en npm y crea el
+GitHub Release con los artefactos.
+
+El workflow necesita un entorno GitHub llamado `npm` con el secreto
+`NPM_TOKEN`.
 
 ## itch.io
 
