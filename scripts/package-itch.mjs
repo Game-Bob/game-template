@@ -7,7 +7,7 @@ import archiver from "archiver";
 
 const root = process.cwd();
 const packageJson = JSON.parse(await fs.readFile(path.join(root, "package.json"), "utf8"));
-const slug = packageJson.name;
+const slug = packageJson.name.split("/").at(-1);
 const outputRoot = path.join(root, "itch", "output");
 const staging = path.join(outputRoot, slug);
 const archivePath = path.join(outputRoot, `${slug}-v${packageJson.version}-itch.zip`);
