@@ -92,7 +92,7 @@ jobs:
 
             - name: Ensure npm package is public
               if: inputs.mode == 'publish' || github.event_name == 'push'
-              run: npm access public "${{ steps.package.outputs.name }}"
+              run: npm access set status=public "${{ steps.package.outputs.name }}"
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
