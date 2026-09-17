@@ -53,8 +53,10 @@ jobs:
               id: package
               shell: bash
               run: |
-                  echo "name=$(node -p \"require('./package.json').name\")" >> "$GITHUB_OUTPUT"
-                  echo "version=$(node -p \"require('./package.json').version\")" >> "$GITHUB_OUTPUT"
+                  name=$(node -e 'console.log(JSON.parse(require("fs").readFileSync("package.json")).name)')
+                  version=$(node -e 'console.log(JSON.parse(require("fs").readFileSync("package.json")).version)')
+                  echo "name=$name" >> "$GITHUB_OUTPUT"
+                  echo "version=$version" >> "$GITHUB_OUTPUT"
 
             - name: Inspect npm package
               if: inputs.mode == 'dry-run'
